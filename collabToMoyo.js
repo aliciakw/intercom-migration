@@ -39,10 +39,9 @@ function updateUserId (id, newUserId, oldUserId) {
     },
     body: JSON.stringify({ id: id, user_id: newUserId })
   }, function (err, data) {
-
     if (data && data.body) {
-      if (data.statusCode == 202) {
-        console.log(data.body);
+      if (data.statusCode == 200) {
+        return;
       } else {
         logError(data.body);
         updateErr(oldUserId, newUserId, id)
@@ -79,7 +78,7 @@ function updateIntercomUserId (idsMap, collabIds, i, max) {
           requestErr(collabId);
         }
       } else if (data && data.statusCode == 429) {
-        logError('429 Too Many Requests... retrying ' + collabId);
+        logError('429 Too Many Requests... retrying ' + collabId + '\n');
         // wait one minute
         setTimeout(function () {
           getIntercomAcct (collabId, moyoId);
@@ -107,5 +106,5 @@ var collabId, moyoId, intercomId;
 var collabIds = Object.keys(idsMap);
 var l = collabIds.length;
 
-console.log('Convert Intercom user_id values....');
+console.log('Convert Intercom user_id values...\n');
 updateIntercomUserId (idsMap, collabIds, 0, l);
