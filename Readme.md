@@ -30,7 +30,7 @@ __creds.json__
 
 
 
-### Explanation & References
+## Explanation & References
 The script makes use of the Intercom API, uses the user's current `user_id` to get their Intercom `id` from the database, and then uses that to update with the new `user_id`.
 
 #####GET
