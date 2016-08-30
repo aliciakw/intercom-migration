@@ -1,10 +1,36 @@
 # Collab to Moyo Ids Translation Script
-This code loops through a json object that maps collab ids to corresponding moyo ids. Any failures are outputted to a file.
+This code loops through a json object that maps collab ids to corresponding moyo ids. Any failures are outputted to an `errors.log` file to be investigated afterward. To use:
 
+#### Set settings, credentials
+
+__collabToMoyo.js__
+```
+var mapFile = './data/stage_bhpproviders_map.json';
+var env = 'STAGE';
+```
+
+__creds.json__
+```
+{
+  "STAGE": {
+    "INTERCOM_APP_ID": "...",
+    "INTERCOM_API_KEY": "..."
+  },
+  "PROD": {
+    "INTERCOM_APP_ID": "...",
+    "INTERCOM_API_KEY":"..."
+  }
+}
+```
+
+
+#### Run the script
 `node collabToMoyo.js`
 
 
-### Basic API calls
+
+
+### Explanation & References
 The script makes use of the Intercom API, uses the user's current `user_id` to get their Intercom `id` from the database, and then uses that to update with the new `user_id`.
 
 #####GET
