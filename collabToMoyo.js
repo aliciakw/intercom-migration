@@ -1,12 +1,15 @@
-var request = require('request');
-//require('request-debug')(request);
+// settings
+var mapFile = './data/stage_bhpproviders_map.json';
+var env = 'STAGE';
 
 // constants
+var idsMap = require(mapFile),
+    creds = require('./creds.json'),
+    request = require('request');
+
 var INTERCOM_URL = 'https://api.intercom.io/users';
-var INTERCOM_APP_ID = 'vpei6msd', // 'gstxhewl',
-    INTERCOM_API_KEY = '79e34a7b9a5d3a006fd6f5554fdd991dbe0b9465'; //'8ccc29e87c8a8fb0455c745065a38e9f90c6a95a';
-var auth = 'Basic ' + new Buffer(INTERCOM_APP_ID + ':' + INTERCOM_API_KEY).toString('base64');
-var idsMap = require('./data/stage_bhpproviders_map.json');
+var auth = 'Basic ' + new Buffer(creds[env]['INTERCOM_APP_ID'] + ':' + creds[env]['INTERCOM_API_KEY']).toString('base64');
+
 
 // logging
 var fs = require('fs');
