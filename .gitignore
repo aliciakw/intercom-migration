@@ -1,3 +1,4 @@
 node_modules
-keys.txt
+creds.json
 errors.log
+data/*

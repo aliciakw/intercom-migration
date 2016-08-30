@@ -1,12 +1,15 @@
-var request = require('request');
-//require('request-debug')(request);
+// settings
+var mapFile = './data/stage_bhpproviders_map.json';
+var env = 'STAGE';
 
 // constants
+var idsMap = require(mapFile),
+    creds = require('./creds.json'),
+    request = require('request');
+
 var INTERCOM_URL = 'https://api.intercom.io/users';
-var INTERCOM_APP_ID = 'vpei6msd', // 'gstxhewl',
-    INTERCOM_API_KEY = '79e34a7b9a5d3a006fd6f5554fdd991dbe0b9465'; //'8ccc29e87c8a8fb0455c745065a38e9f90c6a95a';
-var auth = 'Basic ' + new Buffer(INTERCOM_APP_ID + ':' + INTERCOM_API_KEY).toString('base64');
-var idsMap = require('./data/stage_bhpproviders_map.json');
+var auth = 'Basic ' + new Buffer(creds[env]['INTERCOM_APP_ID'] + ':' + creds[env]['INTERCOM_API_KEY']).toString('base64');
+
 
 // logging
 var fs = require('fs');
@@ -39,10 +42,9 @@ function updateUserId (id, newUserId, oldUserId) {
     },
     body: JSON.stringify({ id: id, user_id: newUserId })
   }, function (err, data) {
-
     if (data && data.body) {
-      if (data.statusCode == 202) {
-        console.log(data.body);
+      if (data.statusCode == 200) {
+        return;
       } else {
         logError(data.body);
         updateErr(oldUserId, newUserId, id)
@@ -79,7 +81,7 @@ function updateIntercomUserId (idsMap, collabIds, i, max) {
           requestErr(collabId);
         }
       } else if (data && data.statusCode == 429) {
-        logError('429 Too Many Requests... retrying ' + collabId);
+        logError('429 Too Many Requests... retrying ' + collabId + '\n');
         // wait one minute
         setTimeout(function () {
           getIntercomAcct (collabId, moyoId);
@@ -107,5 +109,5 @@ var collabId, moyoId, intercomId;
 var collabIds = Object.keys(idsMap);
 var l = collabIds.length;
 
-console.log('Convert Intercom user_id values....');
+console.log('Convert Intercom user_id values...\n');
 updateIntercomUserId (idsMap, collabIds, 0, l);
