@@ -68,7 +68,7 @@ function updateIntercomUserId (idsMap, collabIds, i, max) {
 
     request({
       method: 'GET',
-      url: INTERCOM_URL + '?user_id=' + collabId,
+      url: INTERCOM_URL + '?user_id=' + moyoId,
       headers: {
         'Authorization' : auth,
         'Accept': 'application/json'
@@ -78,16 +78,16 @@ function updateIntercomUserId (idsMap, collabIds, i, max) {
         var record = JSON.parse(data.body);
         if (record.id) {
           logInfo('GET Intercom Id ' + record.id + ' ok');
-          updateUserId(record.id, moyoId, collabId);   // updateUserId (id, newUserId, oldUserId)
+          updateUserId(record.id, collabId, moyoId);   // updateUserId (id, newUserId, oldUserId)
         } else {
           logInfo(data.body);
-          requestErr(collabId);
+          requestErr(moyoId);
         }
       } else {
         if (err) {
           logInfo(err);
         }
-        requestErr(collabId);
+        requestErr(moyoId);
       }
       setTimeout(function () {
         updateIntercomUserId(idsMap, collabIds, (i + 1), max);

@@ -36,7 +36,13 @@ The script makes use of the Intercom API, uses the user's current `user_id` to g
 #####GET
 curl https://api.intercom.io/users -u gstxhewl:8ccc29e87c8a8fb0455c745065a38e9f90c6a95a -H 'Accept:application/json'
 
+curl https://api.intercom.io/users -u gstxhewl:8ccc29e87c8a8fb0455c745065a38e9f90c6a95a -H 'Accept:application/json'
+
+curl https://api.intercom.io/users -u gstxhewl:8ccc29e87c8a8fb0455c745065a38e9f90c6a95a -H 'Accept:application/json'
+
 curl https://api.intercom.io/users?user_id=32897 -u vpei6msd:79e34a7b9a5d3a006fd6f5554fdd991dbe0b9465 -H 'Accept:application/json'
+
+curl https://api.intercom.io/users?user_id=6 -u gstxhewl:8ccc29e87c8a8fb0455c745065a38e9f90c6a95a -H 'Accept:application/json'
 
 #####UPDATE
 //curl https://api.intercom.io/users -X POST -u vpei6msd:79e34a7b9a5d3a006fd6f5554fdd991dbe0b9465 -H 'Accept: application/json' -H 'Content-Type: application/json'
